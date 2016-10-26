@@ -10,11 +10,11 @@ Communication between the MEC and the MES is encrypted in transit with HTTPS.  B
 
 A concept of a server like this appears to have originated around 2012 with Cody Eding's munki-enroll web app.
 
-The MES is written in Python and distributed with its own virtual environments.  The MES is designed to be hosted on Linux, with all of its dependencies in a single container.
+The MES is written in Python and distributed with its own virtual environments.  The MES is designed to be hosted on **Linux**, with all of its dependencies in a single container.  It could be ported to run in other environments; for example, in a Docker environment on another platform.
 
 Building
 ----------
-Run the _build-script.sh_.
+Run the _build-script.sh_ on a **Linux** system.  For example, we build on RHEL.
 
 This script is interactive and will download items and create a server “package root” as a tarball.  Site-specific configuration is embedded in the _init-script.sh_ script in the tarball.
 
@@ -23,14 +23,15 @@ The _build-script.sh_ needs Internet access.  It grabs current versions of the o
 Installing
 ----------
 1. Copy the package root tarball to the target server and expand it in a directory of your choosing.
-2. Run the _init-script.sh_ with the _install_ argument as root; for example:
+2. Edit or restore these configuration files for the MES.  Notes for each config file are in XML comments in each file.
+   - *&lt;container&gt;/mes_virtualenv/mes/configuration.plist*: Overall server config
+   - *&lt;container&gt;/mes_virtualenv/mes/munki_client_prefs.plist*: ManagedInstalls.plist for clients
+3. Run the _init-script.sh_ with the _install_ argument as root; for example:
 <pre>
 tar -xvf munki-enrollment-server-2016.09.tgz
 sudo ./munki-enrollment-server/init-script.sh install
 </pre>
-3. When installing, the script will pause and give you an opportunity to edit or resstore these configuration files for the MES:
-   - *&lt;container&gt;/mes_virtualenv/mes/configuration.plist*
-   - *&lt;container&gt;/mes_virtualenv/mes/munki_client_prefs.plist*
+4. When installing, the script will pause and give you an opportunity to edit or restore the configuration files described in step 2 if you haven't done so already.
 
 To upgrade or install a new version of the package, simpy repeat the installation steps.
 
