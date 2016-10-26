@@ -188,6 +188,7 @@ When built, the NetBoot server container has the following layout:
       - _mes_: Code and configuration files for the MES.  Some configuration plist files are stored here, too:
          - *configuration.plist*
          - *munki_client_prefs.plist*
+
 Methods
 ----------
 ### Python Dependencies ###
