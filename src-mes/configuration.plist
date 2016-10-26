@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Site</key>
+<!-- NOTES 
+# Dictionary with overall details for your site:
+#  * organization_name: string: friendly name of your organization
+#  * sub_organization_name: string: friendly name of your department or IT group
+#  * organization_prefix: string: reverse DNS identifier; e.g. org.example
+-->
+	<dict>
+		<key>organization_name</key>
+		<string>Sample Organization</string>
+		<key>sub_organization_name</key>
+		<string>IT Dept.</string>
+		<key>organization_prefix</key>
+		<string>org.example</string>
+	</dict>
+	<key>ClientMunkiPrefs</key>
+<!-- NOTES
+# Dictionary with meta details for the Munki client config.
+# Note that the munki_client_prefs.plist is the place for the
+# keys that get delivered to the client.  These details are
+# used to build the Apple config profile with the Munki client config.
+#  * organization_prefix: string: reverse DNS identifier; e.g. org.example
+#  * munki_mcx_defaults_domain: string: should be "ManagedInstalls" unless
+#    a future change in Munki moves its configuration.
+#  * munki_mcx_payload_display_name: string: human readable name for the
+#    config profile payload with Munki client config.
+#  * p12_ca_display_name: string: human readable name for the config
+#    profile payload with your Munki CA certificate.
+#  * config_profile_description: string: Description string for the overall profile
+#  * config_profile_display_name: string: Display Name for the overall profile
+#  * config_profile_org: string: Display Name for your organization
+-->
+	<dict>
+		<key>organization_prefix</key>
+		<string>org.example</string>
+		<key>munki_mcx_defaults_domain</key>
+		<string>ManagedInstalls</string>
+		<key>munki_mcx_payload_display_name</key>
+		<string>Munki Client Configuration</string>
+		<key>p12_ca_display_name</key>
+		<string>Munki CA Certificate</string>
+		<key>config_profile_description</key>
+		<string>Sample Description</string>
+		<key>config_profile_display_name</key>
+		<string>Mac Management Profile</string>
+		<key>config_profile_org</key>
+		<string>Sample Organization</string>
+	</dict>
+	<key>ServerApp</key>
+<!-- NOTES
+# Dictionary with details specific to your Linux environment.
+#  * port: integer: the TCP port on which the MES runs. In production,
+#    this port is bound only to 127.0.0.1 so the reverse proxy in front of it
+#    directs requests for enrollment to the MES running on the local port.
+#  * debug_mode: boolean: leave at False unless you are developing.
+#    Normally, the MES runs behind a reverse proxy (such as nginx), and that
+#    reverse proxy handles client/server transport security via HTTPS.
+#    When the debug_mode is set to False the MES binds only to 127.0.0.1.
+#    Setting it to True binds the MES to any IP on the server, eliminating the
+#    need for the reverse proxy when developing.  It exposes all client/server
+#    communication in the clear.  Use only for development purposes.
+#  * temp_dir: string: Filesystem path to a temporary folder to which the
+#    MES system account can write.  Used as a scratch space for generating materials
+#    prior to client delivery.  Usually, /tmp.
+-->
+	<dict>
+		<key>port</key>
+		<integer>3000</integer>
+		<key>debug_mode</key>
+		<false/>
+		<key>temp_dir</key>
+		<string>/tmp</string>
+	</dict>
+	<key>MunkiManifests</key>
+<!-- NOTES
+# Dictionary with details specific to Munki manifests as they are created on the
+# server-side repository.
+#  * default_computer_name_prefix: string: The default prefix for computer names
+#    suggested to the MEC when the technician is asked to pick a computer's name.
+#  * default_group_manifest: string: The default group manifest to include in a
+#    newly-created computer manifest unless another group is chosen by the MEC.
+#    Must reside in <repo>/manifests/groups/
+#  * catalog_array: array of strings: The list of catalogs to be refrenced by a
+#    newly-created computer manifest.
+#  * repo_path: string: The filesystem path to the Munki repository from the
+#    perspective of the server running the MEC.  Could be a local folder or
+#    a NFS mount from a dedicated repo server.
+#  * manifests_dirname: string: Should be "manifests" unless you store them
+#    in a different subdirectory of repo_path.
+#  * group_manifests_dirname: string: Should be "groups" unless you want to modify
+#    this project.  Group manifests are stored in repo_path/manifests/groups by default.
+#  * computer_manifests_dirname: string: Should be "computers" unless you want to modify
+#    this project.  Computer  manifests are stored in repo_path/manifests/computers by default.
+-->
+	<dict>
+		<key>default_computer_name_prefix</key>
+		<string>SAMPLE</string>
+		<key>default_group_manifest</key>
+		<string>default-group</string>
+		<key>catalog_array</key>
+		<array>
+			<string>catalog_1</string>
+			<string>catalog_2</string>
+		</array>
+		<key>repo_path</key>
+		<string>/mounts/repo</string>
+		<key>manifests_dirname</key>
+		<string>manifests</string>
+		<key>group_manifests_dirname</key>
+		<string>groups</string>
+		<key>computer_manifests_dirname</key>
+		<string>computers</string>
+	</dict>
+	<key>CertificateAuthority</key>
+<!-- NOTES
+# Dictionary with details about where your CA materials are stored on the server.
+#  * private_key_path: string: The filesystem path to the private key of your
+#    Munki CA from the perspective of the server running the MEC.
+#    Note that the key must:
+#        - be a RSA key in PEM format
+#        - protected with a passphrase
+#        - readable by the MES system account
+#  * cert_path: string: The filesystem path to the certificate of your 
+#    Munki CA from the perspective of the server running the MEC.
+#    Note that the cert must:
+#        - be in PEM format
+#        - readable by the MES system account
+#  * private_key_passphrase: string: The passphrase used to read the
+#    private key for the Munki CA.
+-->
+	<dict>
+		<key>private_key_path</key>
+		<string>/path/to/ca.key.pem</string>
+		<key>cert_path</key>
+		<string>/path/to/ca.cert.pem</string>
+		<key>private_key_passphrase</key>
+		<string>passphrase</string>
+	</dict>
+	<key>ClientCertificate</key>
+<!-- NOTES
+# Dictionary with details for client certificates.
+#  * csr_country: string: Value for the "country" attribute of the client cert.
+#  * csr_state: string: Value for the "state" attribute of the client cert.
+#  * csr_org: string: Value for the "org" attribute of the client cert.
+#  * csr_ou: string: Value for the "ou" attribute of the client cert.
+#  * csr_locale: string: Value for the "locale" attribute of the client cert.
+#  * cert_life_years: integer: Validity period for the certificate,
+#    in years, starting from when created.
+#  * private_key_bits: integer: Size for the RSA private key generated
+#    for each client.  Use 2048 or higher.
+#  * csr_signing_hash_algorithm: string: hashing algorithm used when signing
+#    each client certificate request to produce the certificate.  Use sha512
+#    or higher.
+-->
+	<dict>
+                <key>csr_country</key>
+                <string>US</string>
+		<key>csr_state</key>
+		<string>ZZ</string>
+		<key>csr_org</key>
+		<string>Sample Organization</string>
+		<key>csr_ou</key>
+		<string>IT Dept.</string>
+		<key>csr_locale</key>
+		<string>National City</string>
+		<key>cert_life_years</key>
+		<integer>3</integer>
+		<key>private_key_bits</key>
+		<integer>2048</integer>
+		<key>csr_signing_hash_algorithm</key>
+		<string>sha512</string>
+	</dict>
+</dict>
+</plist>
