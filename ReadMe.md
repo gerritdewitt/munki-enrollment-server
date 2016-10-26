@@ -66,18 +66,22 @@ Omitting items that are obviously in the public domain or for which more than a 
    - Discussion About Manifest Selector: https://groups.google.com/forum/#!topic/munki-dev/kd0xL-TtiGA
    - Munki Enroll: https://github.com/grahampugh/munki-enroll
    - Munki Enroll: https://github.com/edingc/munki-enroll/blob/master/munki-enroll/enroll.php
-2. Munki:  
+
+2. Munki:
    - https://github.com/munki/munki/wiki/Manifests
    - https://code.google.com/p/munki/wiki/configuration
    - https://github.com/munki/munki/wiki/Preferences
+
 3. Creating _init_ Scripts
    - http://www.tldp.org/HOWTO/HighQuality-Apps-HOWTO/boot.html
    - https://blog.hazrulnizam.com/create-init-script-centos-6/
    - https://gist.github.com/TheMengzor/968e5ea87e99d9c41782
    - https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/s2-services-chkconfig.html
+
 4. Configuration Profile Reference
    - Apple Specification: https://developer.apple.com/library/content/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html
    - Munki Config Profile Example: https://groups.google.com/forum/#!topic/munki-dev/WkePlyLpVrE
+
 5. Python:
    - https://docs.python.org/2/library/base64.html
    - https://docs.python.org/2/library/plistlib.html
@@ -103,6 +107,7 @@ Omitting items that are obviously in the public domain or for which more than a 
       - Signing CSR Example: http://blog.tunnelshade.in/2013/06/sign-using-pyopenssl.html
       - Dumping PEM Examples: http://nullege.com/codes/search/OpenSSL.crypto.dump_certificate
       - Verifying Signed Data Example: http://stackoverflow.com/questions/12146985/verify-signature-with-pyopenssl
+
 6. Misc
    - http://stackoverflow.com/questions/584894/sed-scripting-environment-variable-substitution
    - http://docs.python-guide.org/en/latest/dev/virtualenvs/
