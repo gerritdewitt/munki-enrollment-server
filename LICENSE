@@ -1,0 +1,30 @@
+The GPL license, referenced below, applies to the following elements of this project:
+* New files, documentation, and elements created by Georgia State University;
+* Portions of a derivative work created by Georgia State University (for example, patch files);
+* To the extent to which this project is considered a derivative work, the entire compilation.
+
+This project contains existing open-source software and publicly-documented know-how (collectively, "the existing items").
+The Authors & Sources section of the ReadMe.md file in this directory lists these components, their locations,
+and licenses.  Where practical, we have documented sources for know-how except for when generally
+known to those skilled in the art or otherwise in the public domain.
+
+We believe the existing items are licensed to the public in a manner consistent with the creation of a derivative
+work which can be licensed under the terms of the GPL, referenced below.  This license in no way
+restricts your rights to the existing items.
+
+GPL LICENSE
+
+    Copyright (C) 2016 Georgia State University.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
