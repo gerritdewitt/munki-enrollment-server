@@ -14,11 +14,24 @@ The MES is written in Python and distributed with its own virtual environments. 
 
 Building
 ----------
-Run the _build-script.sh_ on a **Linux** system.  For example, we build on RHEL.
+### Steps ###
+Run the _build-script.sh_ on a **Linux** system.  For example, we build on RHEL.  The _build-script.sh_ needs Internet access.  It grabs current versions of the open source items it needs from the Internet.
 
-This script is interactive and will download items and create a server “package root” as a tarball.  Site-specific configuration is embedded in the _init-script.sh_ script in the tarball.
+This script is interactive.  When building, the script requests the following parameters:
+   - A version number.  This is an arbitrary string for your own internal versioning purposes.
+   - Details for the system account under which the MES will run.  It is possible to run the MES as root, but that's not the best idea.  We run the MES with the privileges of another account whose details you specify at build time:
+      - An *account name* for the system user; we recommend *munki-enrollment-server*.
+      - The UNIX UID number for this system account.  For example, 502.  Pick a UID for a user not already used by the system.
 
-The _build-script.sh_ needs Internet access.  It grabs current versions of the open source items it needs from the Internet.
+The build script produces a “package root” tarball for installation.  Refer to the Installing section for how-to.
+
+### Special Build Considerations ###
+   - If hosting the Munki repository on a mounted NFS volume from another server, take special care to make sure that a user with the same UID is present on that server with appropriate access:
+      - Example: *munki-enrollment-server* with UID 502 is configured on the MES server.  The repository server needs a user with UID 502 having access to the Munki repository:
+         - read-only access to the entire Munki repository
+         - read and write access to the _computers_ subdirectory of the manifests folder in the Munki repository
+   - The system user name and UID are embedded in the installable “package root” tarball.  If those need to be changed, the easiest thing to do is rebuild the MES.
+   - For the sake of clarity, the build script does *not* create the system user account on the box where you build.  It simply updates the _init-script-template.sh_ so that the _init-script.sh_ creates that account on the server on which you install the MES.
 
 Installing
 ----------
