@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!-- NOTES 
+# This file is the template used to generate the Munki client configuration.
+# Customize this file by adding key/value pairs to describe your
+# Munki setup.  See https://github.com/munki/munki/wiki/Preferences for keys
+# and values.   Generally, you can add any key/value pair that you'd
+# normally put in ManagedInstalls.plist on each client with the
+# following restrictions:
+#  These keys must be present:
+#  1.a. ClientCertificatePath: filesystem path from the client's perspective
+#       to a PEM-formatted file containing its unique device certificate.
+#  1.b. ClientKeyPath: filesystem path from the client's perspective
+#       to a PEM-formatted file with the private key for its certificate.
+#  1.c. SoftwareRepoCAPath: filesystem path from the client's perspective
+#       to a PEM-formatted file with the CA certificate used to sign the
+#       client's device identity (ClientCertificatePath).
+#  * Items 1.a through 1.c may be concatinated into a single PEM file;
+#    however, you still must specify the path to that concatinated file
+#    for each key.
+#  * Items 1.a through 1.c must be stored in a path that's not accessible
+#    to users other than root (or admins, if you want to relax security a bit).
+#    This is because these credentials could be copied and used to authenticate
+#    to your software repository to manually download items outside of Munki.
+#    A good suggestion is to place these items in the home for root (/var/root).
+#  2. SoftwareRepoURL: URL to the Munki server.  Must use HTTPS.
+-->
+<dict>
+	<key>ClientCertificatePath</key>
+	<string>/private/var/root/client_cert.pem</string>
+	<key>ClientKeyPath</key>
+	<string>/private/var/root/client_key.pem</string>
+	<key>SoftwareRepoCAPath</key>
+	<string>/private/var/root/ca_cert.pem</string>
+	<key>HelpURL</key>
+	<string>http://your.helpdesk.url</string>
+	<key>SoftwareRepoURL</key>
+	<string>https://your.munki.server</string>
+	<key>InstallAppleSoftwareUpdates</key>
+	<true/>
+	<key>DaysBetweenNotifications</key>
+	<real>0</real>
+	<key>SuppressUserNotification</key>
+	<false/>
+</dict>
+</plist>
