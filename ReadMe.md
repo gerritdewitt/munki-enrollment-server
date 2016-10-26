@@ -61,6 +61,7 @@ Authors & Sources
 
 ### General Reference Notes and Public How-To ###
 Omitting items that are obviously in the public domain or for which more than a few references can be found, the following publicly documented methods and how-to were consulted during the creation of the Munki Enrollment Server.
+
 1. Conceptual Inspiration:
    - Munki Manifest Selector: https://denisonmac.wordpress.com/2013/02/09/munki-manifest-selector
    - Munki Manifest Selector: https://github.com/buffalo/Munki-Manifest-Selector
