@@ -14,7 +14,7 @@ The MES is written in Python and distributed with its own virtual environments. 
 
 Certificate Authority Requirement
 ----------
-The MES requires access to a local CA (its private key and certificate).  Refer to the _CARequirements.md_ file in the _Documentation_ folder for more details.
+The MES requires access to a local CA (its private key and certificate).  Refer to the _Munki_CA_ReadMe.md_ file in the _Documentation_ folder for more details.
 
 Building
 ----------
