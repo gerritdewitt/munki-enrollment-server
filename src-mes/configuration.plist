@@ -87,7 +87,7 @@
 #  * catalog_array: array of strings: The list of catalogs to be refrenced by a
 #    newly-created computer manifest.
 #  * repo_path: string: The filesystem path to the Munki repository from the
-#    perspective of the server running the MEC.  Could be a local folder or
+#    perspective of the server running the MES.  Could be a local folder or
 #    a NFS mount from a dedicated repo server.
 #  * manifests_dirname: string: Should be "manifests" unless you store them
 #    in a different subdirectory of repo_path.
@@ -119,13 +119,13 @@
 <!-- NOTES
 # Dictionary with details about where your CA materials are stored on the server.
 #  * private_key_path: string: The filesystem path to the private key of your
-#    Munki CA from the perspective of the server running the MEC.
+#    Munki CA from the perspective of the server running the MES.
 #    Note that the key must:
 #        - be a RSA key in PEM format
 #        - protected with a passphrase
 #        - readable by the MES system account
 #  * cert_path: string: The filesystem path to the certificate of your 
-#    Munki CA from the perspective of the server running the MEC.
+#    Munki CA from the perspective of the server running the MES.
 #    Note that the cert must:
 #        - be in PEM format
 #        - readable by the MES system account
