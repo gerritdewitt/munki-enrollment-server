@@ -12,6 +12,10 @@ A concept of a server like this appears to have originated around 2012 with Cody
 
 The MES is written in Python and distributed with its own virtual environments.  The MES is designed to be hosted on **Linux**, with all of its dependencies in a single container.  It could be ported to run in other environments; for example, in a Docker environment on another platform.
 
+Certificate Authority Requirement
+----------
+The MES requires access to a local CA (its private key and certificate).  Refer to the _CARequirements.md_ file in the _Documentation_ folder for more details.
+
 Building
 ----------
 ### Steps ###
