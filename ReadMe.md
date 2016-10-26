@@ -121,7 +121,8 @@ Omitting items that are obviously in the public domain or for which more than a 
    - http://man7.org/linux/man-pages/man1/getent.1.html
    - http://www.tecmint.com/add-users-in-linux/
    - http://www.computerhope.com/unix/userdel.htm
-
+   - http://unix.stackexchange.com/questions/196907/proxy-nginx-shows-a-bad-gateway-error
+   
 ### Software ###
 1. PyPy Runtime: Created by various authors
    - https://github.com/squeaky-pl/portable-pypy#portable-pypy-distribution-for-linux and http://doc.pypy.org/en/latest/
