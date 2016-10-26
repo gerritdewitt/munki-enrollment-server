@@ -113,3 +113,12 @@ Sign the certificate? [y/n]:y
 chmod 444 certs/"$SERVER_CNAME".cert.pem 
 exit
 </pre>
+
+References
+----------
+1.  Example CA Setup: http://linoxide.com/security/make-ca-certificate-authority/
+2.  Creating CA Using _openssl_ Commands: https://jamielinux.com/articles/2013/08/act-as-your-own-certificate-authority/
+3.  Signing CSR Using _openssl_ Commands: https://jamielinux.com/articles/2013/08/create-and-sign-ssl-certificates-certificate-authority/
+4.  Removing Passphrase from a Private Key: https://www.mnxsolutions.com/apache/removing-a-passphrase-from-an-ssl-key.html
+5.  Creating a P12 Archive Using _openssl_ Commands: https://www.sslshopper.com/article-most-common-openssl-commands.html?jn554906de
+6.  Google Simian and Certificates Documentation: https://github.com/google/simian/wiki/SimianAndCertificates
