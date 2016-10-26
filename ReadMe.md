@@ -185,7 +185,7 @@ When built, the NetBoot server container has the following layout:
    - _build.log_: The build log created by the _build-script.sh_.
    - _init-script.sh_: The shell script responsible for loading and installing the software.  Created by the _build-script.sh_ from _init-script-template.sh_.
    - _mes_virtualenv_: Portable pypy virtual environment for BSDPy and its dependencies.
-      _mes_: Code and configuration files for the MES.  Some configuration plist files are stored here, too.
+      - _mes_: Code and configuration files for the MES.  Some configuration plist files are stored here, too.
 
 Methods
 ----------
