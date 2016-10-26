@@ -6,7 +6,11 @@ This document describes a simple method to create a local CA on RHEL Linux which
 
 For simplicity, this document describes using one Munki CA to:
    - Vend client certificates and keys, and
-   - Configure HTTPS for the Munki repo with a server certifcate
+   - Configure HTTPS for the Munki repo with a server certificate
+   
+The setup also is geared towards using _nginx_ as both:
+   - a reverse proxy for the MES
+   - the Munki web repository (via HTTPS)
 
 Setup Example
 ----------
@@ -59,7 +63,53 @@ exit
 sudo -s
 cd /opt/munki-ca
 openssl req -new -x509 -days 3650 -key private/ca.key.pem -sha256 -extensions v3_ca -out certs/ca.cert.pem
+# Follow prompts for attributes.
 chmod 444 certs/ca.cert.pem
 exit
 </pre>
 
+### Build Server Certificate & Key ###
+The server's certificate and private key are used for its web server configuration.  For examples here, we recommend _nginx_ for the Munki repository web server.  It also serves as the reverse proxy in front of the MES.
+
+**Important**: You should create a DNS CNAME (alias) record for your Munki server(s).  Even if you have just one server, a CNAME will make migration easier.  It also means that:
+   - the CN value of the server's certificate can be the same across all your servers
+   - the same server certificate and private key can be used on all of the Munki repo and MES servers
+   - the same _nginx_ web server configuration can be used on all of the Munki repo and MES servers
+   
+For this example, we use **munki.sample.org** as the CNAME for the Munki and MES server(s).
+
+1.  Generate the server private key. When prompted, supply a **temporary** passphrase.  For the server key, we'll remove this passphrase so that you can start and stop the web server (e.g. _nginx_) without having to enter its passphrase every time.
+<pre>
+sudo -s
+SERVER_CNAME=munki.sample.org
+cd /opt/munki-ca
+# Generate key with passphrase:
+openssl genrsa -aes256 -out private/"$SERVER_CNAME".key.with-pass.pem 4096
+# Remove passphrase:
+openssl rsa -in private/"$SERVER_CNAME".key.with-pass.pem -out private/"$SERVER_CNAME".key.pem
+rm private/"$SERVER_CNAME".key.with-pass.pem
+exit
+</pre>
+
+2.  Generate the server certificate signing request. As before, the _openssl_ command is interactive, and you'll specify certificate attributes like country, locale, etc.  For the “Common Name (eg, your name or your server's hostname)” attribute, specify the CNAME (**munki.sample.org** in this example).
+<pre>
+sudo -s
+SERVER_CNAME=munki.sample.org
+cd /opt/munki-ca
+openssl req -new -days 3650 -key private/"$SERVER_CNAME".key.pem -sha256 -out certs/"$SERVER_CNAME".csr.pem
+# Follow prompts for attributes.
+exit
+</pre>
+
+3.  Sign the server certificate signing request with the private key of the Munki CA to produce the server certificate for _munki.sample.org_. You will be prompted to enter the private key passphrase for the Munki CA.
+<pre>
+sudo -s
+SERVER_CNAME=munki.sample.org
+cd /opt/munki-ca
+openssl ca -keyfile private/ca.key.pem -cert certs/ca.cert.pem -extensions usr_cert -notext -md sha256 -in certs/"$SERVER_CNAME".csr.pem -out certs/"$SERVER_CNAME".cert.pem -days 3650
+...output omitted...
+Sign the certificate? [y/n]:y
+1 out of 1 certificate requests certified, commit? [y/n]y
+chmod 444 certs/"$SERVER_CNAME".cert.pem 
+exit
+</pre>
