@@ -8,6 +8,7 @@
 # and values.   Generally, you can add any key/value pair that you'd
 # normally put in ManagedInstalls.plist on each client with the
 # following restrictions:
+
 #  These keys must be present:
 #  1.a. ClientCertificatePath: filesystem path from the client's perspective
 #       to a PEM-formatted file containing its unique device certificate.
@@ -25,6 +26,24 @@
 #    to your software repository to manually download items outside of Munki.
 #    A good suggestion is to place these items in the home for root (/var/root).
 #  2. SoftwareRepoURL: URL to the Munki server.  Must use HTTPS.
+
+#  These keys are overridden:
+#  3. UseClientCertificate: will always be set to True since we're doing client
+#     certificate-based authentication over HTTPS.
+#  4. ClientIdentifier: will always be "computers/X" where X is the system's
+#     hardware serial number.  This could be made configurable; however, we
+#     chose to organize client manifests in a computers subdirectory of the
+#     manifests directory in the Munki repository.
+#  5. UseClientCertificateCNAsClientIdentifier: will always be set to False because:
+#     - the CN for the certificate is the client's hardware serial number
+#     - but we're putting the client manifets in the "computers" subdirectory
+#     - of the manifests directory.  Thus the client identifier must be specified
+#     - as we describe in 4.
+#  6. KeychainName: at present, we use "munki-temp.keychain" which gets created
+#     in /Library/Keychains.  On each check-in, client certs, keys, and CA certs
+#     are imported to this keychain from paths specified in 1.a through 1.c.
+#  7. KeychainPassword: at present, we provide a generated UUID to use as the password
+#     for the "munki-temp.keychain" keychain.
 -->
 <dict>
 	<key>ClientCertificatePath</key>
