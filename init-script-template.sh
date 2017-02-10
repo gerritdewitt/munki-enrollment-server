@@ -1,15 +1,17 @@
 #!/bin/bash
 
+# chkconfig: 345 95 05
+
 # Munki Enrollment Server (MES) Init Script.
 # gdewitt@gsu.edu, 2015-06-15, 2015-06-15, 2016-03-04, 2016-03-14, 2016-04-25, 2016-07-06, 2016-08-02, 2016-08-09 (NetBoot Server Container)
 # 2016-09-19, 2016-10-18, 2016-10-25.
+# 2017-02-08
 # to do: modify this script to work on distros besides RHEL
 
 # References: See top level Read Me.
-# chkconfig: 345 95 05
 
 # Globals:
-declare -x APP_NAME="Munki Enrollment Server"
+declare -x APP_NAME="Munki-Enrollment-Server"
 declare -x APP_DISPLAY_NAME="Server for Munki Enrollment Client"
 # System paths:
 declare -x INIT_SCRIPTS_DIR="/etc/init.d"
@@ -28,7 +30,7 @@ declare -i CAN_START=0
 
 # MES:
 declare -x PYTHON_FILE_MES="$CONTAINER_DIR/__%MES_VENV_DIR_BASENAME%__/mes/server.py"
-declare -x CMD_MES=(su "$MES_RUN_AS_USER_NAME" -p -c '"$CONTAINER_DIR/__%MES_VENV_DIR_BASENAME%__/bin/pypy" "$PYTHON_FILE_MES"')
+declare -x CMD_MES=(su "$MES_RUN_AS_USER_NAME" -p -c '"$CONTAINER_DIR/__%MES_VENV_DIR_BASENAME%__/bin/pypy" "$PYTHON_FILE_MES" > /dev/null 2>&1')
 declare -a CONF_FILE_MES="$CONTAINER_DIR/__%MES_VENV_DIR_BASENAME%__/mes/configuration.plist"
 declare -a CONF_FILE_MUNKI_CLIENT="$CONTAINER_DIR/__%MES_VENV_DIR_BASENAME%__/mes/munki_client_prefs.plist"
 declare -a APP_FILES_ARRAY=("$PYTHON_FILE_MES" "$CONF_FILE_MES" "$CONF_FILE_MUNKI_CLIENT")
@@ -192,7 +194,6 @@ function uninstall() {
     echo "Calling stop()..."
     stop
 
-    # chkconfig:
     echo "Running chkconfig..."
     /sbin/chkconfig --level 345 "$APP_NAME" off && echo "  App will NOT run on system boot."
 
