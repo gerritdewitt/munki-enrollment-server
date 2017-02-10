@@ -7,7 +7,7 @@
 
 # Written by Gerrit DeWitt (gdewitt@gsu.edu)
 # Project started 2015-06-15.
-# 2016-09-19.
+# 2016-09-19, 2017-02-10.
 # Copyright Georgia State University.
 # This script uses publicly-documented methods known to those skilled in the art.
 # References: See top level Read Me.
@@ -39,7 +39,10 @@ def process_request():
     # All interactions must have a command POST variables.
     try:
         command = request.form['command']
-    except NameError, KeyError:
+    except NameError:
+        common.logging_error("No command sent in POST.")
+        return None
+    except KeyError:
         common.logging_error("No command sent in POST.")
         return None
     # Toss unrecognized commands:
@@ -129,7 +132,9 @@ def process_request():
         common.logging_info("Processing response: plist.")
         try:
             response_plist_str = plistlib.writePlistToString(response_dict)
-        except xml.parsers.expat.ExpatError, TypeError:
+        except xml.parsers.expat.ExpatError:
+            response_plist_str = ''
+        except TypeError:
             response_plist_str = ''
         if response_plist_str:
             response = make_response(response_plist_str)
