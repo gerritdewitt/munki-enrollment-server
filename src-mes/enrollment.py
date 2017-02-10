@@ -6,7 +6,7 @@
 
 # Written by Gerrit DeWitt (gdewitt@gsu.edu)
 # Project started 2015-06-15.  This file created 2015-07-23.
-# 2016-09-19.
+# 2016-09-19, 2017-02-10.
 # Copyright Georgia State University.
 # This script uses publicly-documented methods known to those skilled in the art.
 # References: See top level Read Me.
@@ -20,6 +20,7 @@ import manifests
 import security
 # Import configuration:
 import configuration_classes as config
+config_site = config.Site()
 config_app = config.ServerApp()
 config_munki_client = config.ClientMunkiPrefs()
 
@@ -134,7 +135,7 @@ def make_mobileconfig(given_serial,given_ca_cert_p12_data,given_ca_cert_cn):
     mobileconfig_top_dict['PayloadVersion'] = int(1)
     mobileconfig_top_dict['PayloadType'] = "Configuration"
     mobileconfig_top_dict['PayloadScope'] = "System"
-    mobileconfig_top_dict['PayloadIdentifier'] = "%s.config.profile.munki-enrollment" % config_munki_client.ORGANIZATION_ID_PREFIX
+    mobileconfig_top_dict['PayloadIdentifier'] = "%s.config.profile.munki-enrollment" % config_site.ORGANIZATION_ID_PREFIX
     mobileconfig_top_dict['PayloadUUID'] = str(uuid.uuid4())
     mobileconfig_top_dict['PayloadOrganization'] = config_munki_client.CONFIG_PROFILE_ORG
     mobileconfig_top_dict['PayloadDisplayName'] = config_munki_client.CONFIG_PROFILE_DISPLAY_NAME
@@ -147,7 +148,7 @@ def make_mobileconfig(given_serial,given_ca_cert_p12_data,given_ca_cert_cn):
     payload_p12_dict['PayloadVersion'] = int(1)
     payload_p12_dict['PayloadType'] = "com.apple.security.pkcs12"
     payload_p12_dict['PayloadUUID'] = str(uuid.uuid4())
-    payload_p12_dict['PayloadIdentifier'] = "%s.config.payload.com.apple.security.pkcs12.ca-cert" % config_munki_client.ORGANIZATION_ID_PREFIX
+    payload_p12_dict['PayloadIdentifier'] = "%s.config.payload.com.apple.security.pkcs12.ca-cert" % config_site.ORGANIZATION_ID_PREFIX
     payload_p12_dict['PayloadDisplayName'] = config_munki_client.P12_CA_DISPLAY_NAME
     payload_p12_dict['PayloadDescription'] = "CA: %s" % given_ca_cert_cn
     payload_p12_dict['PayloadContent'] = plistlib.Data(given_ca_cert_p12_data)
@@ -178,7 +179,7 @@ def make_mobileconfig(given_serial,given_ca_cert_p12_data,given_ca_cert_cn):
     payload_mcx_munki_client_dict['PayloadVersion'] = int(1)
     payload_mcx_munki_client_dict['PayloadType'] = "com.apple.ManagedClient.preferences"
     payload_mcx_munki_client_dict['PayloadUUID'] = str(uuid.uuid4())
-    payload_mcx_munki_client_dict['PayloadIdentifier'] = "%s.config.payload.com.apple.ManagedClient.preferences.munki" % config_munki_client.ORGANIZATION_ID_PREFIX
+    payload_mcx_munki_client_dict['PayloadIdentifier'] = "%s.config.payload.com.apple.ManagedClient.preferences.munki" % config_site.ORGANIZATION_ID_PREFIX
     payload_mcx_munki_client_dict['PayloadDisplayName'] = config_munki_client.MUNKI_MCX_PAYLOAD_DISPLAY_NAME
     payload_mcx_munki_client_dict['PayloadDescription'] = "Server: %s" % mcx_preference_settings['SoftwareRepoURL'].replace('https://','').replace('/','')
     payload_mcx_munki_client_dict['PayloadContent'] = {}
@@ -190,5 +191,7 @@ def make_mobileconfig(given_serial,given_ca_cert_p12_data,given_ca_cert_cn):
     # Return XML of the mobileconfig:
     try:
         return plistlib.writePlistToString(mobileconfig_top_dict)
-    except xml.parsers.expat.ExpatError, TypeError:
+    except xml.parsers.expat.ExpatError:
+        return None
+    except TypeError:
         return None
